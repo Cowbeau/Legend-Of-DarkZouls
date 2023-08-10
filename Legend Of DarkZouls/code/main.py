@@ -19,12 +19,13 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
- 
+
+                    
             self.screen.fill('black')
             self.level.run()
             pygame.display.update()
             self.clock.tick(FPS)
- 
+            
 if __name__ == '__main__':
     game = Game()
     game.run()
