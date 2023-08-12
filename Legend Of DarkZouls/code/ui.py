@@ -25,7 +25,6 @@ class UI:
             magic = pygame.image.load(magic['graphic']).convert_alpha()
             self.magic_graphics.append(magic)
             
-
     def show_bar(self,current,max_amount,bg_rect,color):
 
         # draw bg
@@ -73,7 +72,6 @@ class UI:
         magic_rect = magic_surf.get_rect(center = bg_rect.center)
 
         self.display_surface.blit(magic_surf,magic_rect)
-
 
     def display(self,player):
         self.show_bar(player.health,player.stats['health'],self.health_bar_rect,HEALTH_COLOR)
