@@ -1,9 +1,10 @@
 import pygame
 from settings import *
 from support import import_folder
+from entity import Entity
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self,pos,groups,obstacle_sprites,create_attack,destroy_attack):
+class Player(Entity):
+    def __init__(self,pos,groups,obstacle_sprites,create_attack,destroy_attack,create_magic):
         super().__init__(groups)
         self.image = pygame.image.load('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/test/player.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
@@ -12,14 +13,11 @@ class Player(pygame.sprite.Sprite):
         # graphics setup
         self.import_player_assets()
         self.status = 'down'
-        self.frame_index = 0
-        self.animation_speed = 0.15
 
         # movement
-        self.direction = pygame.math.Vector2()
         self.attacking = False
         self.attack_cooldown = 400
-        self.attack_time = Nones
+        self.attack_time = None
         
 
         self.obstacle_sprites = obstacle_sprites
@@ -33,6 +31,13 @@ class Player(pygame.sprite.Sprite):
         self.weapon_switch_time = None
         self.switch_duration_cooldown = 200
 
+        # magic
+        self.create_magic = create_magic
+        self.magic_index = 0
+        self.can_switch_magic = list(magic_data.keys())[self.magic_index]
+        self.can_switch_magic = True
+        self.magic_switch_time = None
+
         # stats
         self.stats = {'health': 100,'energy': 60,'attack': 10,'magic': 4,'speed': 5}
         self.health = self.stats ['health']
@@ -40,9 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.exp = 123
         self.speed = self.stats ['speed']
 
-
-
-        def import_player_assets(self):
+    def import_player_assets(self):
             character_path = '/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/player/'
             self.animations = {'up':[],'down':[],'left':[],'right':[],
             'right_idle':[],'left_idle':[],'up_idle':[],'down_idle':[],
@@ -52,9 +55,7 @@ class Player(pygame.sprite.Sprite):
                 full_path = character_path + animation
                 self.animations[animation] = import_folder(full_path)
 
-
-
-        def input(self):
+    def input(self):
             if not self.attacking:
                 keys = pygame.key.get_pressed()
 
@@ -84,11 +85,14 @@ class Player(pygame.sprite.Sprite):
                 self.create_attack()
 
 
-            #magic input
+            # magic input
             if keys[pygame.K_LCTRL]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                print('magic')
+                style = list(magic_data.keys())[self.magic_index]
+                strength = list(magic_data.values())[self.magic_index]['strength'] + self.stats['magic']
+                cost = list(magic_data.keys())[self.magic_index]['cost']
+                self.create_magic(style,strength,cost)
 
             if keys[pygame.K_q] and self.can_switch_weapon:
                 self.can_switch_weapon = False
@@ -101,7 +105,7 @@ class Player(pygame.sprite.Sprite):
 
                 self.weapon = list(weapon_data.keys())[self.weapon_index]
 
-        def get_status(self):
+    def get_status(self):
 
             # idle status
             if self.direction.x == 0 and self.direction.y == 0:
@@ -120,37 +124,7 @@ class Player(pygame.sprite.Sprite):
                 if 'attack' in self.status:
                     self.status = self.status.replace('_attack','')
 
-        def move(self,speed):
-            if self.direction.magnitude() != 0:
-                self.direction.normalize()
-
-            self.hitbox.x += self.direction.x * speed
-            self.collision('horizontal')
-            self.hitbox.y += self.direction.y * speed
-            self.collision('vertical')
-            self.rect.center = self.hitbox.center
-            
-
-        def collision(self,direction):
-                if direction == 'horizontal':
-                    for sprite in self.obstacle_sprites:
-                        if sprite.hitbox.colliderect(self.hitbox):
-                            if self.direction.x > 0: # moving right
-                                self.hitbox.right = sprite.hitbox.left
-                            if self.direction.x < 0: # moving left
-                                self.hitbox.left = sprite.hitbox.right
-
-
-
-                if direction == 'vertical':
-                    for sprite in self.obstacle_sprites:
-                        if sprite.hitbox.colliderect(self.hitbox):
-                            if self.direction.y > 0: # moving down
-                                self.hitbox.bottom = sprite.hitbox.top
-                            if self.direction.y < 0: # moving up
-                                self.hitbox.top = sprite.hitbox.bottom
-
-        def cooldowns(self): 
+    def cooldowns(self): 
             current_time = pygame.time.get_ticks()
 
             if self.attacking:
@@ -162,8 +136,8 @@ class Player(pygame.sprite.Sprite):
                 if current_time - self.weapon_switch_time >= self.switch_duration_cooldown:
                     self.can_switch_weapon = True
 
-        def animate(self):
-            animation = self.animations[self.satus]
+    def animate(self):
+            animation = self.animations[self.status]
 
             # loop over frame index
             self.frame_index += self.animation_speed
@@ -171,10 +145,10 @@ class Player(pygame.sprite.Sprite):
                 self.frame_index = 0
 
             # set the image
-            self.image = animation[int[self.frame_index]]
+            self.image = animation[int(self.frame_index)]
             self.rect = self.image.get_rect(center = self.hitbox.center)
 
-        def update(self):
+    def update(self):
             self.input
             self.cooldowns
             self.get_status()
