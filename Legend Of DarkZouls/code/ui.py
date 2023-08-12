@@ -24,7 +24,6 @@ class UI:
         for magic in magic_data.values():
             magic = pygame.image.load(magic['graphic']).convert_alpha()
             self.magic_graphics.append(magic)
-            
 
     def show_bar(self,current,max_amount,bg_rect,color):
 
@@ -71,7 +70,7 @@ class UI:
         bg_rect = self.selection_box(80,635,has_switched)
         magic_surf = self.magic_graphics[magic_index]
         magic_rect = magic_surf.get_rect(center = bg_rect.center)
-
+        
         self.display_surface.blit(magic_surf,magic_rect)
 
 
