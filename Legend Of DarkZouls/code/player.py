@@ -91,7 +91,7 @@ class Player(pygame.sprite.Sprite):
                 self.create_attack()
 
 
-            #magic input
+            # magic input
             if keys[pygame.K_LCTRL]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
