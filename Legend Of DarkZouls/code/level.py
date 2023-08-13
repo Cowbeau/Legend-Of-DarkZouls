@@ -37,10 +37,10 @@ class Level:
 
     def create_map(self):
         layouts = {
-                'boundary': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_FloorBlocks.csv'), 
-                'grass': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_Grass.csv'),
-                'object': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_LargeObjects.csv'),
-                'entities': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_Entities.csv')
+                'boundary': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_FloorBlocks.csv'),   # noqa: F405
+                'grass': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_Grass.csv'),  # noqa: F405
+                'object': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_LargeObjects.csv'),  # noqa: F405
+                'entities': import_csv_layout('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/map/map_Entities.csv')  # noqa: F405
         }
         graphics = {
                 'grass': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/grass/'),
