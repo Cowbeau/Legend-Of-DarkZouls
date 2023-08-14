@@ -1,10 +1,10 @@
 import pygame
-from settings import *
+from settings import *  # noqa: F403
 from entity import Entity
-from support import *
+from support import *  # noqa: F403
 
 class Enemy(Entity):
-    def __init__(self,monster_name,pos,groups,obstacle_sprites,damage_player,trigger_death_particles,add_exp):
+    def __init__(self,monster_name,pos,groups,obstacle_sprites,damage_player,trigger_death_particles,add_exp):  # noqa: E501
 
         # general setup
         super().__init__(groups)
@@ -22,7 +22,7 @@ class Enemy(Entity):
 
         # stats
         self.monster_name = monster_name
-        monster_info = monster_data[self.monster_name]
+        monster_info = monster_data[self.monster_name]  # noqa: F405
         self.health = monster_info['health']
         self.exp = monster_info['exp']
         self.speed = monster_info['speed']
@@ -45,11 +45,19 @@ class Enemy(Entity):
         self.hit_time = None
         self.invulnerability_duration = 300
 
+        # sounds
+        self.death_sound = pygame.mixer.Sound('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/audio/death.wav')  # noqa: E501
+        self.hit_sound = pygame.mixer.Sound('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/audio/hit.wav')  # noqa: E501
+        self.attack_sound = pygame.mixer.Sound(monster_info['attack_sound'])
+        self.death_sound.set_volume(0.6)
+        self.hit_sound.set_volume(0.6)
+        self.attack_sound.set_volume(0.3)
+
     def import_graphics(self,name):
         self.animations = {'idle':[],'move':[],'attack':[]}
-        main_path = f'/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/monsters/{name}/'
+        main_path = f'/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/monsters/{name}/'  # noqa: E501
         for animation in self.animations.keys():
-            self.animations[animation] = import_folder(main_path + animation)
+            self.animations[animation] = import_folder(main_path + animation)  # noqa: F405, E501
 
     def get_player_distance_direction(self,player):
         enemy_vec = pygame.math.Vector2(self.rect.center)
@@ -79,6 +87,7 @@ class Enemy(Entity):
         if self.status == 'attack':
             self.attack_time = pygame.time.get_ticks()
             self.damage_player(self.attack_damage,self.attack_type)
+            self.attack_sound.play()
         elif self.status == 'move':
             self.direction = self.get_player_distance_direction(player)[1]
         else:
@@ -114,6 +123,7 @@ class Enemy(Entity):
 
     def get_damage(self,player,attack_type):
         if self.vulnerable:
+            self.hit_sound.play()
             self.direction = self.get_player_distance_direction(player)[1]
             if attack_type == 'weapon':
                 self.health -= player.get_full_weapon_damage()
@@ -127,6 +137,7 @@ class Enemy(Entity):
             self.kill()
             self.trigger_death_particles(self.rect.center,self.monster_name)
             self.add_exp(self.exp)
+            self.death_sound.play()
     
     def hit_reaction(self):
         if not self.vulnerable:
