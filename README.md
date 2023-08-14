@@ -1,31 +1,27 @@
 # Legend-Of-DarkZouls
 This project is a Legend Of Zelda/Dark Souls style game I am using to learn Python. The game contains elements including:
 
+* Graphics
 
-Graphics
+* Animations
 
-Animations
+* Fake Depth
 
-Fake Depth
+* Upgrade system and mechanics with a pause/upgrade menu
 
-Upgrade system and mechanics with a pause/upgrade menu
+* Level Map
 
-Level Map
+* Weapons and Magic
 
-Weapons and Magic
+* Magic System
 
-Magic System
+* User Interface
 
-User Interface
+* Player and enemy interactions
 
-Player and enemy interactions
+* Particle Effects
 
-Particle Effects
-
-Sound effects and soundtrack
-
-
-
+* Sound effects and soundtrack
 
 
 Credits to clear-code-projects for creation and tutorial. 
