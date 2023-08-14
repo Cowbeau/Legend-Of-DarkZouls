@@ -1,5 +1,5 @@
 import pygame
-from settings import *
+from settings import *  # noqa: F403
 
 class Upgrade:
     def __init__(self,player):
@@ -10,7 +10,7 @@ class Upgrade:
         self.attribute_nr = len(player.stats)
         self.attribute_names = list(player.stats.keys())
         self.max_values = list(player.max_stats.values())
-        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
+        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)  # noqa: F405
 
         # item creation
         self.height = self.display_surface.get_size()[1] * 0.8
@@ -76,21 +76,21 @@ class Upgrade:
             item.display(self.display_surface,self.selection_index,name,value,max_value,cost)
 
 class Item:
-    def __init__(self,l,t,w,h,index,font):
+    def __init__(self,l,t,w,h,index,font):  # noqa: E741
         self.rect = pygame.Rect(l,t,w,h)
         self.index = index
         self.font = font
     
     def display_names(self,surface,name,cost,selected):
-        color = TEXT_COLOR_SELECTED if selected else TEXT_COLOR
+        color = TEXT_COLOR_SELECTED if selected else TEXT_COLOR  # noqa: F405
 
         # title
         title_surf = self.font.render(name,False,color)
-        title_rect = title_surf.get_rect(midtop = self.rect.midtop + pygame.math.Vector2(0,20))
+        title_rect = title_surf.get_rect(midtop = self.rect.midtop + pygame.math.Vector2(0,20))  # noqa: E501
 
         # cost
         cost_surf = self.font.render(f'{int(cost)}',False,color)
-        cost_rect = cost_surf.get_rect(midbottom = self.rect.midbottom - pygame.math.Vector2(0,20))
+        cost_rect = cost_surf.get_rect(midbottom = self.rect.midbottom - pygame.math.Vector2(0,20))  # noqa: E501
 
         # draw
         surface.blit(title_surf,title_rect)
@@ -101,7 +101,7 @@ class Item:
         # drawing setup
         top = self.rect.midtop + pygame.math.Vector2(0,60)
         bottom = self.rect.midbottom - pygame.math.Vector2(0,60)
-        color = BAR_COLOR_SELECTED if selected else BAR_COLOR
+        color = BAR_COLOR_SELECTED if selected else BAR_COLOR  # noqa: F405
 
         # bar setup
         full_height = bottom[1] - top[1]
@@ -115,7 +115,7 @@ class Item:
     def trigger(self,player):
         upgrade_attribute = list(player.stats.keys())[self.index]
         
-        if player.exp >= player.upgrade_cost[upgrade_attribute] and player.stats[upgrade_attribute] < player.max_stats[upgrade_attribute]:
+        if player.exp >= player.upgrade_cost[upgrade_attribute] and player.stats[upgrade_attribute] < player.max_stats[upgrade_attribute]:  # noqa: E501
             player.exp -= player.upgrade_cost[upgrade_attribute]
             player.stats[upgrade_attribute] *= 1.2
             player.upgrade_cost[upgrade_attribute] *= 1.4
@@ -125,11 +125,11 @@ class Item:
 
     def display(self,surface,selection_num,name,value,max_value,cost):
         if self.index == selection_num:
-            pygame.draw.rect(surface,UPGRADE_BG_COLOR_SELECTED,self.rect)
-            pygame.draw.rect(surface,UI_BORDER_COLOR,self.rect,4)
+            pygame.draw.rect(surface,UPGRADE_BG_COLOR_SELECTED,self.rect)  # noqa: F405
+            pygame.draw.rect(surface,UI_BORDER_COLOR,self.rect,4)  # noqa: F405
         else:
-            pygame.draw.rect(surface,UI_BG_COLOR,self.rect)
-            pygame.draw.rect(surface,UI_BORDER_COLOR,self.rect,4)
+            pygame.draw.rect(surface,UI_BG_COLOR,self.rect)  # noqa: F405
+            pygame.draw.rect(surface,UI_BORDER_COLOR,self.rect,4)  # noqa: F405
 
         self.display_names(surface,name,cost,self.index == selection_num)
         self.display_bar(surface,value,max_value,self.index == selection_num)

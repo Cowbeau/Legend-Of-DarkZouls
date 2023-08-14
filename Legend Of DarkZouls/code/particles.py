@@ -6,37 +6,37 @@ class AnimationPlayer:
     def __init__(self):
         self.frames = {
             # magic
-            'flame': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/flame/frames'),
-            'aura': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/aura'),
-            'heal': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/heal/frames'),
+            'flame': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/flame/frames'),  # noqa: E501
+            'aura': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/aura'),  # noqa: E501
+            'heal': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/heal/frames'),  # noqa: E501
             
             # attacks 
-            'claw': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/claw'),
-            'slash': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/slash'),
-            'sparkle': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/sparkle'),
-            'leaf_attack': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf_attack'),
-            'thunder': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/thunder'),
+            'claw': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/claw'),  # noqa: E501
+            'slash': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/slash'),  # noqa: E501
+            'sparkle': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/sparkle'),  # noqa: E501
+            'leaf_attack': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf_attack'),  # noqa: E501
+            'thunder': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/thunder'),  # noqa: E501
  
             # monster deaths
-            'squid': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/smoke_orange'),
-            'raccoon': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/raccoon'),
-            'spirit': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/nova'),
-            'bamboo': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/bamboo'),
+            'squid': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/smoke_orange'),  # noqa: E501
+            'raccoon': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/raccoon'),  # noqa: E501
+            'spirit': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/nova'),  # noqa: E501
+            'bamboo': import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/bamboo'),  # noqa: E501
             
             # leafs 
             'leaf': (
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf1'),
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf2'),
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf3'),
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf4'),
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf5'),
-                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf6'),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf1')),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf2')),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf3')),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf4')),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf5')),
-                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf6'))
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf1'),  # noqa: E501
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf2'),  # noqa: E501
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf3'),  # noqa: E501
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf4'),  # noqa: E501
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf5'),  # noqa: E501
+                import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf6'),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf1')),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf2')),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf3')),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf4')),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf5')),  # noqa: E501
+                self.reflect_images(import_folder('/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/particles/leaf6'))  # noqa: E501
                 )
             }
 
