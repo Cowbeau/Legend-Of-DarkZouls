@@ -16,9 +16,11 @@ class Player(Entity):
         self.status = 'down'
 
         # movement
+        self.speed = 5
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
+
         self.obstacle_sprites = obstacle_sprites
 
         # weapon
@@ -56,14 +58,14 @@ class Player(Entity):
         self.weapon_attack_sound.set_volume(0.4)
 
     def import_player_assets(self):
-            character_path = '/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/player/'  # noqa: E501
-            self.animations = {'up':[],'down':[],'left':[],'right':[],
-            'right_idle':[],'left_idle':[],'up_idle':[],'down_idle':[],
-            'right_attack':[],'left_attack':[],'up_attack':[],'down_attack':[]}
+        character_path = '/home/beaum/Documents/Coding Projects/Python Projects/Legend Of DarkZouls/graphics/player/'  # noqa: E501
+        self.animations = {'up':[],'down':[],'left':[],'right':[],
+                'right_idle':[],'left_idle':[],'up_idle':[],'down_idle':[],
+                'right_attack':[],'left_attack':[],'up_attack':[],'down_attack':[]}
 
-            for animation in self.animations.keys():
-                full_path = character_path + animation
-                self.animations[animation] = import_folder(full_path)
+        for animation in self.animations.keys():
+            full_path = character_path + animation
+            self.animations[animation] = import_folder(full_path)
 
     def input(self):
             if not self.attacking:
@@ -74,19 +76,19 @@ class Player(Entity):
                 self.direction.y = -1
                 self.status = 'up'
             elif keys[pygame.K_DOWN]:
-                    self.direction.y = 1
-                    self.status = 'down'
+                self.direction.y = 1
+                self.status = 'down'
             else:
-                    self.direction.y = 0
+                self.direction.y = 0
 
             if keys[pygame.K_RIGHT]:
                 self.direction.x = 1
                 self.status = 'right'
             elif keys[pygame.K_LEFT]:
-                    self.direction.x = -1
-                    self.status = 'left'
+                self.direction.x = -1
+                self.status = 'left'
             else:
-                    self.direction.x = 0
+                self.direction.x = 0
 
             # attack input
             if keys[pygame.K_SPACE]:
@@ -109,12 +111,12 @@ class Player(Entity):
                 self.can_switch_weapon = False
                 self.weapon_switch_time = pygame.time.get_ticks()
 
-                if self.weapon_index < len(list(weapon_data.keys())) - 1:  # noqa: F405
-                    self.weapon_index += 1
-                else:
-                    self.weapon_index = 0
+            if self.weapon_index < len(list(weapon_data.keys())) - 1:  # noqa: F405
+               self.weapon_index += 1
+            else:
+               self.weapon_index = 0
 
-                self.weapon = list(weapon_data.keys())[self.weapon_index]  # noqa: F405
+               self.weapon = list(weapon_data.keys())[self.weapon_index]  # noqa: F405
 
             if keys[pygame.K_e] and self.can_switch_magic:
                 self.can_switch_magic = False
@@ -123,7 +125,7 @@ class Player(Entity):
                 if self.magic_index < len(list(magic_data.keys())) - 1:  # noqa: F405
                     self.magic_index += 1
                 else:
-                    self.magic_index = 0
+                   self.magic_index = 0
 
                 self.magic = list(magic_data.keys())[self.magic_index]  # noqa: F405
 
@@ -137,10 +139,10 @@ class Player(Entity):
             if self.attacking:
                 self.direction.x = 0
                 self.direction.y = 0
-                if not 'idle' in self.status:  # noqa: E713
+                if not 'attack' in self.status:  # noqa: E713
                     if 'idle' in self.status:
-                       self.status = self.status.replace('_idle','_attack')
-                    else: 
+                        self.status = self.status.replace('_idle','_attack')
+                    else:
                         self.status = self.status + '_attack'
             else:
                 if 'attack' in self.status:
@@ -148,16 +150,16 @@ class Player(Entity):
     
     def move(self,speed):
             if self.direction.magnitude() != 0:
-                self.direction.normalize()
+               self.direction.normalize()
 
-            self.hitbox.x += self.direction.x * speed
-            self.collision('horizontal')
-            self.hitbox.y += self.direction.y * speed
-            self.collision('vertical')
-            self.rect.center = self.hitbox.center
+               self.hitbox.x += self.direction.x * speed
+               self.collision('horizontal')
+               self.hitbox.y += self.direction.y * speed
+               self.collision('vertical')
+               self.rect.center = self.hitbox.center
 
     def collision(self,direction):
-                if direction == 'horizontal':
+            if direction == 'horizontal':
                     for sprite in self.obstacle_sprites:
                         if sprite.hitbox.colliderect(self.hitbox):
                             if self.direction.x > 0: # moving right
@@ -165,34 +167,7 @@ class Player(Entity):
                             if self.direction.x < 0: # moving left
                                 self.hitbox.left = sprite.hitbox.right
 
-                if direction == 'vertical':
-                    for sprite in self.obstacle_sprites:
-                        if sprite.hitbox.colliderect(self.hitbox):
-                            if self.direction.y > 0: # moving down
-                                self.hitbox.bottom = sprite.hitbox.top
-                            if self.direction.y < 0: # moving up
-                                self.hitbox.top = sprite.hitbox.bottom
-
-    def move(self,speed):
-            if self.direction.magnitude() != 0:
-                self.direction.normalize()
-
-            self.hitbox.x += self.direction.x * speed
-            self.collision('horizontal')
-            self.hitbox.y += self.direction.y * speed
-            self.collision('vertical')
-            self.rect.center = self.hitbox.center
-            
-    def collision(self,direction):
-                if direction == 'horizontal':
-                    for sprite in self.obstacle_sprites:
-                        if sprite.hitbox.colliderect(self.hitbox):
-                            if self.direction.x > 0: # moving right
-                                self.hitbox.right = sprite.hitbox.left
-                            if self.direction.x < 0: # moving left
-                                self.hitbox.left = sprite.hitbox.right
-
-                if direction == 'vertical':
+            if direction == 'vertical':
                     for sprite in self.obstacle_sprites:
                         if sprite.hitbox.colliderect(self.hitbox):
                             if self.direction.y > 0: # moving down
